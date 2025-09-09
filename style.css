@@ -1,0 +1,81 @@
+/* Fonts: Rajdhani for headings, Rubik for UI */
+:root{
+  --bg:#0b0f1a; --bg-deep:#070a12; --panel:#0f1424; --panel-2:#121a33;
+  --gold:#ffcc66; --gold-deep:#caa24e; --accent:#38e1ff; --accent-2:#8c6bff;
+  --win:#6af296; --loss:#f77; --text:#eaf1ff; --muted:#9fb0d0;
+  --shadow: 0 12px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:"Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--text); background: radial-gradient(1200px 600px at 50% -10%, #122040 0%, var(--bg) 50%, var(--bg-deep) 100%);
+}
+.game{min-height:100%; display:flex; flex-direction:column;}
+.top{display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:linear-gradient(180deg, #151e34, #0f1424); box-shadow:var(--shadow);}
+.brand{font-family:"Rajdhani"; letter-spacing:4px; font-weight:700; font-size:22px; color:var(--gold); text-shadow:0 0 12px rgba(255,204,102,.35);}
+.bank{display:flex; gap:10px; align-items:center; color:var(--muted)}
+
+.cabinet{position:relative; width:min(980px, 96vw); margin:28px auto; padding:22px 18px 18px; background:linear-gradient(180deg, var(--panel), var(--panel-2)); border-radius:18px; box-shadow:0 24px 80px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.04);}
+.marquee{position:absolute; inset:10px; border-radius:14px; pointer-events:none; box-shadow:0 0 0 2px rgba(255,255,255,.06), 0 0 60px rgba(56,225,255,.1);
+  background: radial-gradient(800px 200px at 50% 0%, rgba(56,225,255,.08), transparent 60%), radial-gradient(700px 180px at 50% 100%, rgba(140,107,255,.08), transparent 60%);
+}
+
+.reels{position:relative; display:grid; grid-template-columns:repeat(5, 1fr); gap:10px; padding:14px; background:linear-gradient(180deg, #0c1120, #0b1126); border-radius:12px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), inset 0 -60px 120px rgba(0,0,0,.45); overflow:hidden}
+.reels .payline-indicators{position:absolute; inset:0; pointer-events:none}
+/* Top/Bottom fade shadows for nicer depth */
+.reels::before,.reels::after{content:""; position:absolute; left:0; right:0; height:20%; pointer-events:none; z-index:2}
+.reels::before{top:0; background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,0))}
+.reels::after{bottom:0; background:linear-gradient(0deg, rgba(0,0,0,.55), rgba(0,0,0,0))}
+.reel{height:min(52vh, 380px); min-height:260px; overflow:hidden; border-radius:10px; background:linear-gradient(180deg, #0e162e, #0a0f1f); box-shadow:inset 0 0 0 1px rgba(255,255,255,.05), inset 0 20px 60px rgba(0,0,0,.5); position:relative} 
+.reel > .track{height:100%; display:flex; flex-direction:column; will-change:transform}
+.symbol{height:33.3333%; display:flex; align-items:center; justify-content:center; font-size:40px; text-shadow:0 6px 12px rgba(0,0,0,.5); filter:drop-shadow(0 8px 16px rgba(0,0,0,.45)); position:relative; z-index:1}
+/* Subtle win glow */
+.symbol.glow{animation:winpulse 1.4s ease-in-out infinite alternate; filter:drop-shadow(0 10px 18px rgba(106,242,150,.35)) brightness(1.08)}
+@keyframes winpulse{from{filter:drop-shadow(0 8px 16px rgba(106,242,150,.25)) brightness(1.02)} to{filter:drop-shadow(0 14px 26px rgba(106,242,150,.45)) brightness(1.12)}}
+
+.controls{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; align-items:center; margin-top:16px}
+.control{background:linear-gradient(180deg, #121a33, #0e1427); padding:12px; border-radius:10px; box-shadow:var(--shadow);}
+.lbl{display:block; font:600 12px/1 "Rubik"; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+.stepper{display:flex; gap:10px; align-items:center;}
+.total{font:700 20px/1 "Rajdhani"; color:var(--gold)}
+
+.actionbar{display:flex; gap:10px; margin-top:14px}
+.btn{appearance:none; border:0; padding:12px 16px; border-radius:10px; cursor:pointer; font:600 14px "Rubik"; color:var(--text); background:linear-gradient(180deg, #1b2644, #121a33); box-shadow:var(--shadow); transition:.15s transform, .15s filter}
+.btn:hover{filter:brightness(1.1)}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:linear-gradient(180deg, #2b7cff, #1b54d4); color:white; text-shadow:0 0 8px rgba(255,255,255,.25)}
+.btn-ghost{background:transparent; box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+
+.message{min-height:28px; margin-top:12px; text-align:center; font:700 18px "Rajdhani"; color:var(--accent)}
+.footer{margin:0 auto 24px; width:min(980px,96vw); display:flex; justify-content:space-between; color:var(--muted); font-size:12px}
+
+/* Win highlight and payline lines */
+.win .symbol{filter:drop-shadow(0 0 10px rgba(106,242,150,.6)) saturate(1.1)}
+.payline{position:absolute; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--accent), transparent); opacity:.0; pointer-events:none}
+.payline.show{opacity:.6; animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.15}}
+
+/* Responsive */
+@media (max-width:820px){.symbol{font-size:34px}.btn{padding:10px 12px}}
+@media (max-width:560px){.controls{grid-template-columns:1fr}.footer{flex-direction:column; gap:6px}}
+
+/* Spin blur nicety */
+.reels.spinning .symbol{filter:blur(.6px) brightness(1.06) drop-shadow(0 6px 12px rgba(0,0,0,.35));}
+
+/* Win/Loss feedback */
+.reels.win{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06), 0 0 22px rgba(106,242,150,.25), inset 0 0 60px rgba(106,242,150,.12)}
+.reels.loss{animation:shake .28s ease-in-out}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}50%{transform:translateX(2px)}75%{transform:translateX(-1px)}}
+
+.needle {
+  position:absolute;
+  width:6px; height:28px;
+  background:var(--gold);
+  top:50%; transform:translateY(-50%);
+  z-index:10;
+  border-radius:2px;
+  box-shadow:0 0 8px rgba(255,204,102,.6);
+}
+.needle-left { left:0; }
+.needle-right { right:0; }

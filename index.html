@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DAWSONS SLOTS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game">
+    <header class="top">
+      <div class="brand">DAWSONS SLOTS</div>
+      <div class="bank">
+        <span>Balance:</span>
+        <strong id="balance">1000</strong>
+        <button id="addCredits" class="btn btn-ghost" title="Add 500">+500</button>
+      </div>
+    </header>
+
+    <main class="cabinet">
+      <div class="marquee" aria-hidden="true"></div>
+
+      <div id="reels" class="reels" role="region" aria-label="Slot reels">
+        <div class="payline-indicators" aria-hidden="true"></div>
+        <div class="reel" data-reel="0"></div>
+        <div class="reel" data-reel="1"></div>
+        <div class="reel" data-reel="2"></div>
+        <div class="reel" data-reel="3"></div>
+        <div class="reel" data-reel="4"></div>
+      </div>
+
+      <div class="controls" role="group" aria-label="Controls">
+        <div class="control left">
+          <label class="lbl">Lines</label>
+          <div class="stepper">
+            <button id="linesDec" class="btn btn-ghost" aria-label="Decrease lines">−</button>
+            <span id="linesVal">10</span>
+            <button id="linesInc" class="btn btn-ghost" aria-label="Increase lines">+</button>
+          </div>
+        </div>
+
+        <div class="control mid">
+          <label class="lbl">Bet / Line</label>
+          <div class="stepper">
+            <button id="betDec" class="btn btn-ghost" aria-label="Decrease bet">−</button>
+            <span id="betVal">5</span>
+            <button id="betInc" class="btn btn-ghost" aria-label="Increase bet">+</button>
+          </div>
+        </div>
+
+        <div class="control right">
+          <label class="lbl">Total Bet</label>
+          <div class="total" id="totalBet">50</div>
+        </div>
+      </div>
+
+      <div class="actionbar">
+        <button id="spin" class="btn btn-primary">SPIN</button>
+        <button id="auto" class="btn">AUTO</button>
+        <button id="sound" class="btn">SOUND: ON</button>
+      </div>
+
+      <div id="message" class="message" role="status" aria-live="polite"></div>
+    </main>
+
+    <footer class="footer">
+      <div>Paylines: 10 | Symbols: 🍒 🍋 🔔 ⭐ 7️⃣ 💎 🍀 BAR</div>
+      <div class="tiny">Use Space to spin. Up/Down adjusts bet, Left/Right lines.</div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+<style>
+/* Small inline safeguard to avoid unstyled flash */
+body { background: #0b0f1a; }
+</style>
+  
+</html>
